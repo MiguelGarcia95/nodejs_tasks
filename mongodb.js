@@ -1,10 +1,14 @@
 // CRUD
 
 const mongodb = require('mongodb');
-const MongoClient = mongodb.MongoClient;
+const {MongoClient, ObjectID} = mongodb;
 
 const connectionURL = 'mongodb://127.0.0.1:27017';
 const databaseName = 'task-manager';
+
+const id = new ObjectID();
+console.log(id);
+console.log(id.getTimestamp());
 
 MongoClient.connect(connectionURL, {useNewUrlParser: true}, (error, client) => {
   if (error) {
@@ -22,14 +26,44 @@ MongoClient.connect(connectionURL, {useNewUrlParser: true}, (error, client) => {
   //   console.log(result.ops)
   // })
 
-  db.collection('users').insertMany([
-    {
-      name: 'Jen', 
-      age: 29
-    },
-    {
-      name: 'Othinus',
-      age: 2000
-    }
-  ])
+  // db.collection('users').insertMany([
+  //   {
+  //     name: 'Jen', 
+  //     age: 29
+  //   },
+  //   {
+  //     name: 'Othinus',
+  //     age: 2000
+  //   }
+  // ], (error, result) => {
+  //   if (error) {
+  //     return console.log('Unable to insert documents');
+  //   }
+
+  //   console.log(result.ops);
+  // })
+
+  // db.collection('tasks').insertMany([
+  //   {
+  //     user: 'Othinus',
+  //     description: 'Create Gungnir',
+  //     completed: true
+  //   },
+  //   {
+  //     user: 'Touma',
+  //     description: 'Get a girlfriend',
+  //     completed: false
+  //   },
+  //   {
+  //     user: 'Misaki',
+  //     description: 'Make prince fall in love with me',
+  //     completed: false
+  //   },
+  // ], (error, result) => {
+  //   if (error) {
+  //     return console.log('Unable to insert tasks');
+  //   }
+
+  //   console.log(result.ops);
+  // });
 })
