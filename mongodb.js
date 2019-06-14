@@ -46,10 +46,6 @@ MongoClient.connect(connectionURL, {useNewUrlParser: true}, (error, client) => {
   //   console.log(result.ops);
   // });
 
-  // db.collection('tasks').find({ completed: false }).toArray((error, tasks) => {
-  //   console.log(tasks)
-  // })
-
   db.collection('tasks').find({completed: true}).toArray((error, tasks) => {
     if (error) {
       return console.log(error);
@@ -57,4 +53,5 @@ MongoClient.connect(connectionURL, {useNewUrlParser: true}, (error, client) => {
 
     console.log(tasks);
   })
+
 })
