@@ -46,12 +46,30 @@ MongoClient.connect(connectionURL, {useNewUrlParser: true}, (error, client) => {
   //   console.log(result.ops);
   // });
 
-  db.collection('tasks').find({completed: true}).toArray((error, tasks) => {
-    if (error) {
-      return console.log(error);
-    }
+  // db.collection('tasks').find({completed: true}).toArray((error, tasks) => {
+  //   if (error) {
+  //     return console.log(error);
+  //   }
 
-    console.log(tasks);
-  })
+  //   console.log(tasks);
+  // })
+
+  // db.collection('tasks').findOne({ _id: new
+  //   ObjectID("5d03ff39d1dc1c24dc1a2220") }, (error, task) => {
+  //   if (error) {
+  //     return console.log(error);
+  //   }
+
+  //   console.log(task)
+  // })
+
+  // db.collection('tasks').updateOne({user: 'Misaki'}, {$set: {completed: false}})
+  //   .then(result => {
+  //     console.log('result: ', result);
+  //   }).catch(error => {
+  //     console.log('error: ', error);
+  //   })
+
+  
 
 })
