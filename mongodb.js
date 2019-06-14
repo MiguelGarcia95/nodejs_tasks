@@ -70,12 +70,19 @@ MongoClient.connect(connectionURL, {useNewUrlParser: true}, (error, client) => {
   //     console.log('error: ', error);
   //   })
 
-  db.collection('tasks').updateMany({completed: false}, {$set: {completed: false}})
-    .then(result => {
-      console.log(result.modifiedCount)
-    }).catch(error => {
-      console.log(error)
-    })
+  // db.collection('tasks').updateMany({completed: true}, {$set: {completed: false}})
+  //   .then(result => {
+  //     console.log(result.modifiedCount)
+  //   }).catch(error => {
+  //     console.log(error)
+  //   })
 
+  db.collection('tasks').deleteOne({
+    description: 'Create Gungnir'
+  }).then(result => {
+    console.log(result);
+  }).catch(error => {
+    console.log(error);
+  });
 
 })
