@@ -77,12 +77,20 @@ MongoClient.connect(connectionURL, {useNewUrlParser: true}, (error, client) => {
   //     console.log(error)
   //   })
 
-  db.collection('tasks').deleteOne({
-    description: 'Create Gungnir'
-  }).then(result => {
-    console.log(result);
-  }).catch(error => {
-    console.log(error);
-  });
+  // db.collection('tasks').deleteOne({
+  //   description: 'Create Gungnir'
+  // }).then(result => {
+  //   console.log(result);
+  // }).catch(error => {
+  //   console.log(error);
+  // });
+
+  // db.collection('tasks').deleteMany({
+  //   completed: false
+  // }).then(result => {
+  //   console.log(result);
+  // }).catch(error => {
+  //   console.log(error);
+  // })
 
 })
