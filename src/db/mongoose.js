@@ -73,7 +73,7 @@ const Task = mongoose.model('Task', {
 })
 
 const newTask = new Task({
-  description: 'Sample Task    ',
+  description: 'Sample Task',
   // completed: true
 })
 
