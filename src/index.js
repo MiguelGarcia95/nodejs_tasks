@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require('./models/User');
+const Task = require('./models/Task');
 require('./db/mongoose');
 
 const app = express();
@@ -16,6 +17,16 @@ app.post('/users', (req, res) => {
       res.status(400).send(e);
     })
 });
+
+app.post('/tasks', (req, res) => {
+  const task = new Task(req.body);
+  task.save()
+    .then(() => {
+      res.send(task);
+    }).catch(e => {
+      res.status(400).send(e);
+    })
+})
 
 app.listen(port, () => {
   console.log('Server is up on port: ', port);
