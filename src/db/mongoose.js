@@ -14,14 +14,35 @@ const User = mongoose.model('User', {
   }
 });
 
-const me = new User({
-  name: 'Miguel',
-  age: 23,
-});
+const Task = mongoose.model('Task', {
+  description: {
+    type: String
+  },
+  completed: {
+    type: Boolean
+  }
+})
 
-me.save()
+const newTask = new Task({
+  description: 'Sample Task',
+  completed: true
+})
+
+newTask.save()
   .then(() => {
-    console.log(me);
-  }).catch(error => {
-    console.log('Error: ', error);
-  });
+    console.log(newTask);
+  }).catch((error) => {
+    console.log(error)
+  })
+
+// const me = new User({
+//   name: 'Miguel',
+//   age: 23,
+// });
+
+// me.save()
+//   .then(() => {
+//     console.log(me);
+//   }).catch(error => {
+//     console.log('Error: ', error);
+//   });
