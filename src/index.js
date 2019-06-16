@@ -6,10 +6,16 @@ require('./db/mongoose');
 const app = express();
 const port = process.env.PORT || 3000;
 
+// app.use((req, res, next) => {
+//   if (req.method === 'GET') {
+//     res.send('GET requests are disabled.')
+//   } else {
+//     next();
+//   }
+// });
+
 app.use((req, res, next) => {
-  console.log(req.method, req.path);
-  
-  // next();
+  res.status(503).send('Site down for maintance, sorry for incovinience.');
 });
 
 app.use(express.json());
