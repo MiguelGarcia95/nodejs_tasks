@@ -12,9 +12,6 @@ app.post('/users', async (req, res) => {
   const user = new User(req.body);
   try {
     await user.save();
-    if (!user) {
-      return res.status(404).send();
-    }
     res.status(201).send(user);
   } catch (e) {
       res.status(500).send(e);    
@@ -24,7 +21,7 @@ app.post('/users', async (req, res) => {
 app.get('/users', async (req, res) => {
   try {
     const users = await User.find();
-    res.status(200).send(users);
+    res.send(users);
   } catch (e) {
     res.status(500).send(e);    
   }
@@ -37,7 +34,7 @@ app.get('/users/:id', async (req, res) => {
     if (!user) {
       return res.status(404).send();
     }
-    res.status(200).send(user);
+    res.send(user);
   } catch (e) {
     res.status(500).send(e);    
   }
@@ -56,7 +53,7 @@ app.post('/tasks', async (req, res) => {
 app.get('/tasks', async (req, res) => {
   try {
     const tasks = await Task.find();
-    res.status(200).send(tasks);
+    res.send(tasks);
   } catch (e) {
     res.status(500).send(e);
   }
@@ -69,9 +66,31 @@ app.get('/tasks/:id', async (req, res) => {
     if (!task) {
       return res.status(404).send();
     }
-    res.status(200).send(task);
+    res.send(task);
   } catch (e) {
     res.status(500).send(e);
+  }
+});
+
+app.patch('/users/:id', async (req, res) => {
+  const allowedUpdates = ['name', 'email', 'password', 'age'];
+  const updates = Object.keys(req.body);
+  const isValidOp = updates.every(update => allowedUpdates.includes(update));
+ 
+  if (!isValidOp) {
+    return res.status(400).send({error: 'Invalid Updates'});
+  }
+
+  try {
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true});
+
+    if (!user) {
+      return res.status(404).send();
+    }
+
+    res.send(user);
+  } catch (e) {
+    res.status(400).send(e);
   }
 })
 
