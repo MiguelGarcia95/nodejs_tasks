@@ -8,6 +8,8 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
+const router = new express.Router();
+
 app.post('/users', async (req, res) => {
   const user = new User(req.body);
   try {
