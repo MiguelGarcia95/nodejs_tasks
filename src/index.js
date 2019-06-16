@@ -1,7 +1,8 @@
 const express = require('express');
-const User = require('./models/User');
-const Task = require('./models/Task');
+// const User = require('./models/User');
+// const Task = require('./models/Task');
 const userRouter = require('./routers/user');
+const taskRouter = require('./routers/user');
 require('./db/mongoose');
 
 const app = express();
@@ -9,85 +10,7 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(userRouter);
-
-app.post('/tasks', async (req, res) => {
-  const task = new Task(req.body);
-  try {
-    await task.save();
-    res.status(201).send(task);
-  } catch (e) {
-    res.status(500).send(e);    
-  };
-})
-
-app.get('/tasks', async (req, res) => {
-  try {
-    const tasks = await Task.find();
-    res.send(tasks);
-  } catch (e) {
-    res.status(500).send(e);
-  }
-})
-
-app.get('/tasks/:id', async (req, res) => {
-  const {id} = req.params;
-  try {
-    const task = await Task.findById(id);
-    if (!task) {
-      return res.status(404).send();
-    }
-    res.send(task);
-  } catch (e) {
-    res.status(500).send(e);
-  }
-});
-
-app.delete('/users/:id', async(req, res) => {
-  try {
-    const user = await User.findByIdAndDelete(req.params.id);
-
-    if (!user) {
-      return res.status(400).send();
-    }
-    res.send(user);
-  } catch (e) {
-    res.status(500).send(e);
-  }
-})
-
-app.patch('/tasks/:id', async(req, res) => {
-  const allowedUpdates = ['description', 'completed'];
-  const updates = Object.keys(req.body);
-  const isValidOp = updates.every(update => allowedUpdates.includes(update));
-
-  if (!isValidOp) {
-    return res.status(400).send({error: 'Invalid Updates'});
-  }
-
-  try {
-    const task = await Task.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true});
-    
-    if (!task) {
-      return res.status(404).send();
-    }
-
-    res.send(task);
-  } catch (e) {
-    res.status(400).send(e);
-  }
-})
-
-app.delete('/tasks/:id', async(req, res) => {
-  try {
-    const task = await Task.findByIdAndDelete(req.params.id);
-    if (!task) {
-      return res.status(404).send();
-    }
-    res.send(task)
-  } catch (e) {
-    res.status(500).send(e);
-  }
-})
+app.use(taskRouter);
 
 app.listen(port, () => {
   console.log('Server is up on port: ', port);
