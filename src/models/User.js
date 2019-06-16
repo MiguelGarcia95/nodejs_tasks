@@ -42,6 +42,13 @@ const userSchema = new mongoose.Schema({
   }
 });
 
+
+//Instance method
+userSchema.methods.generateAuthToken = async function() {
+
+}
+
+//Model method
 userSchema.statics.findByCredentials = async(email, password) => {
   const user = await User.findOne({ email });
 
