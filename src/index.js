@@ -12,9 +12,12 @@ app.post('/users', async (req, res) => {
   const user = new User(req.body);
   try {
     await user.save();
+    if (!user) {
+      return res.status(404).send();
+    }
     res.status(201).send(user);
   } catch (e) {
-      res.status(400).send(e);    
+      res.status(500).send(e);    
   }
 });
 
@@ -31,6 +34,9 @@ app.get('/users/:id', async (req, res) => {
   const {id} = req.params;
   try {
     const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).send();
+    }
     res.status(200).send(user);
   } catch (e) {
     res.status(500).send(e);    
@@ -39,12 +45,12 @@ app.get('/users/:id', async (req, res) => {
 
 app.post('/tasks', (req, res) => {
   const task = new Task(req.body);
-  task.save()
-    .then(() => {
-      res.status(201).send(task);
-    }).catch(e => {
-      res.status(400).send(e);
-    })
+  try {
+    task.save();
+    res.status(201).send(task);
+  } catch (e) {
+    res.status(500).send(e);    
+  };
 })
 
 app.get('/tasks', (req, res) => {
