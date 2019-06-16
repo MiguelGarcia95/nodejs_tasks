@@ -14,9 +14,9 @@ const port = process.env.PORT || 3000;
 //   }
 // });
 
-app.use((req, res, next) => {
-  res.status(503).send('Site down for maintance, sorry for incovinience.');
-});
+// app.use((req, res, next) => {
+//   res.status(503).send('Site down for maintance, sorry for incovinience.');
+// });
 
 app.use(express.json());
 app.use(userRouter);
