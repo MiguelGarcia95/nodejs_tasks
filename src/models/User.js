@@ -50,13 +50,21 @@ const userSchema = new mongoose.Schema({
 });
 
 
-//Instance method
+//Instance methods
 userSchema.methods.generateAuthToken = async function() {
   const user = this;
   const token = jwt.sign({_id: user._id.toString()}, 'thisismynewsecretstring');
   user.tokens = user.tokens.concat({token});
   await user.save();
   return token;
+}
+
+userSchema.methods.getPublicProfile = function() {
+  const user = this;
+  const userObject = user.toObject();
+  delete userObject.password;
+  delete userObject.tokens;
+  return userObject;
 }
 
 //Model method
