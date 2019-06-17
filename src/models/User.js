@@ -5,6 +5,9 @@ const jwt = require('jsonwebtoken');
 const Task = require('./Task');
 
 const userSchema = new mongoose.Schema({
+  avatar: {
+    type: Buffer
+  },
   name: {
     type: String,
     required: true,
